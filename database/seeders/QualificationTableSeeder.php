@@ -9,10 +9,13 @@ class QualificationTableSeeder extends Seeder
 {
     public function run()
     {
-        Qualification::create(['code' => 'IT' , 'name' => 'Information Technology']); 
-        Qualification::create(['code' => 'EIM' , 'name' => 'Electrical Installation Maintenance']); 
-        Qualification::create(['code' => 'CSS' , 'name' => 'Computer System Servicing']); 
-        Qualification::create(['code' => 'VGD' , 'name' => 'Visual Graphics Design']); 
-        Qualification::create(['code' => 'BPP' , 'name' => 'Bread and Pastry ProductionTechnology']); 
+        Qualification::create(['id' => '1', 'quali_name' => 'Asexual Propagation', 'image' => '']); 
+        Qualification::create(['id' => '2', 'quali_name' => 'Feed Formulation and Mixing', 'image' => '']);  
+        Qualification::create(['id' => '3', 'quali_name' => 'Knapsack Sprayer Calibration', 'image' => '']); 
+        Qualification::create(['id' => '4', 'quali_name' => 'Cake Decorating', 'image' => '']); 
+        Qualification::create(['id' => '5', 'quali_name' => 'Graphics Design', 'image' => '']); 
+        Qualification::create(['id' => '6', 'quali_name' => 'Restaurant Service', 'image' => '']); 
+        Qualification::create(['id' => '7', 'quali_name' => 'SMAW', 'image' => '']); 
+        Qualification::create(['id' => '8', 'quali_name' => 'Electrical Installation', 'image' => '']); 
     }
 }

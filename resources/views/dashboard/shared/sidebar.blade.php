@@ -1,64 +1,40 @@
+@php
+  $qualification = DB::table('qualifications')->get();
+@endphp
+
 <div class="c-sidebar-brand">
   <img class="c-sidebar-brand-full" src="{{ url('/assets/brand/coreui-base-white.svg') }}" width="118" height="46" alt="CoreUI Logo">
   <img class="c-sidebar-brand-minimized" src="{{ url('assets/brand/coreui-signet-white.svg') }}" width="118" height="46" alt="CoreUI Logo">
 </div>
 <ul class="c-sidebar-nav">
-
+  <li class="c-sidebar-nav-title">@lang('Admin Configuration')</li>
   <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="{{ route('dashboard.index') }}">
+    <a class="c-sidebar-nav-link" href="{{ route('institution.index') }}">
       <i class="cil-speedometer c-sidebar-nav-icon"></i>
-      Dashboard
+      Institutions
     </a>
   </li>
 
+  <li class="c-sidebar-nav-title">@lang('Criteria Configuration')</li>
   <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="">
-      <i class="cil-paper-plane c-sidebar-nav-icon"></i>
-      Announcements
+    <a class="c-sidebar-nav-link" href="{{ route('asexualcrits.index') }}">
+      <i class="cil-speedometer c-sidebar-nav-icon"></i>
+      Asexual Propagation Criteria
     </a>
   </li>
 
-  <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="">
-      <i class="cil-money c-sidebar-nav-icon"></i>
-      Fees
-    </a>
-  </li>
+  <li class="c-sidebar-nav-title">@lang('Qualification')</li>
 
-  <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="">
-      <i class="cil-user-follow c-sidebar-nav-icon"></i>
-      Students
-    </a>
-  </li>
-
-  <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="">
-      <i class="cil-school c-sidebar-nav-icon"></i>
-      Enrolment
-    </a>
-  </li>
-
-  <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="">
-      <i class="cil-view-column c-sidebar-nav-icon"></i>
-      Sections
-    </a>
-  </li>
-
-  <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="">
-      <i class="cil-list c-sidebar-nav-icon"></i>
-      Subjects
-    </a>
-  </li>
-
-  <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="">
-      <i class="cil-paperclip c-sidebar-nav-icon"></i>
-      Grades
-    </a>
-  </li>
+  @foreach ($qualification as $quali)
+    <li class="c-sidebar-nav-item">
+      <a class="c-sidebar-nav-link" href="{{ URL::to('/qualiCon/'.$quali->id) }}">
+        <i class="cil-speedometer c-sidebar-nav-icon"></i>
+        {{ $quali->quali_name }}
+      </a>
+    </li>
+  @endforeach
+  
+  
 
   <li class="c-sidebar-nav-title">@lang('System')</li>
 
