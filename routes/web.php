@@ -23,7 +23,9 @@ Route::group(['middleware' => ['auth']],function() {
             Route::resource('users','UsersController');   
             Route::resource('institution','InstitutionsController'); 
             Route::resource('asexualcrits','CriteriaAsexualController');   
-            Route::resource('asexualguidelines','GuidelineAsexualController');              
+            Route::resource('asexualguidelines','GuidelineAsexualController');
+            Route::resource('feedcrits','CriteriaFeedController');
+            Route::resource('feedguidelines','GuidelineFeedController');        
         });
     });    
 });

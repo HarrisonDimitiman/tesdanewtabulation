@@ -16,13 +16,22 @@
   </li>
 
   <li class="c-sidebar-nav-title">@lang('Criteria Configuration')</li>
-  <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="{{ route('asexualcrits.index') }}">
-      <i class="cil-speedometer c-sidebar-nav-icon"></i>
-      Asexual Propagation Criteria
-    </a>
-  </li>
 
+  <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle"> <i class="cil-speedometer c-sidebar-nav-icon"></i> Criteria </a>
+    <ul class="c-sidebar-nav-dropdown-items">
+       <a  href="{{ route('feedcrits.index') }}">
+        <li class="c-sidebar-nav-link">
+            Feed Formulation and Mixing
+          </li>
+       </a>
+       <a  href="{{ route('asexualcrits.index') }}">
+          <li class="c-sidebar-nav-link" >
+              Asexual Propagation Criteria
+          </li>
+       </a>
+    </ul>
+  </li>
   <li class="c-sidebar-nav-title">@lang('Qualification')</li>
 
   @foreach ($qualification as $quali)
