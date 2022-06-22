@@ -30,21 +30,47 @@
               Asexual Propagation Criteria
           </li>
        </a>
+       <a  href="{{ route('knapsackcrits.index') }}">
+          <li class="c-sidebar-nav-link" >
+             Knapsack Sprayer Calibration
+          </li>
+       </a>
+       <a  href="{{ route('bakingcrits.index') }}">
+          <li class="c-sidebar-nav-link" >
+             Baking
+          </li>
+       </a>
+       <a  href="{{ route('cookingcrits.index') }}">
+          <li class="c-sidebar-nav-link" >
+             Cooking
+          </li>
+       </a>
+       <a  href="{{ route('restaurantcrits.index') }}">
+          <li class="c-sidebar-nav-link" >
+             Restaurant Services
+          </li>
+       </a>
+       <a  href="{{ route('patisseriecrits.index') }}">
+          <li class="c-sidebar-nav-link" >
+            Patisserie & Confectionary
+          </li>
+       </a>
     </ul>
   </li>
   <li class="c-sidebar-nav-title">@lang('Qualification')</li>
 
-  @foreach ($qualification as $quali)
-    <li class="c-sidebar-nav-item">
-      <a class="c-sidebar-nav-link" href="{{ URL::to('/qualiCon/'.$quali->id) }}">
-        <i class="cil-speedometer c-sidebar-nav-icon"></i>
+  <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle"> <i class="cil-speedometer c-sidebar-nav-icon"></i> Qualification </a>
+    <ul class="c-sidebar-nav-dropdown-items">
+     @foreach ($qualification as $quali)
+       <a  href="{{ URL::to('/qualiCon/'.$quali->id) }}">
+        <li class="c-sidebar-nav-link">
         {{ $quali->quali_name }}
-      </a>
-    </li>
-  @endforeach
-  
-  
-
+          </li>
+       </a>
+       @endforeach
+    </ul>
+  </li>
   <li class="c-sidebar-nav-title">@lang('System')</li>
 
   @role('admin')
@@ -55,7 +81,7 @@
       </a>
     </li>
 
-    <li class="c-sidebar-nav-item">
+    <!-- <li class="c-sidebar-nav-item">
       <a class="c-sidebar-nav-link" href="">
         <i class="cil-calendar c-sidebar-nav-icon"></i>
         School Year
@@ -67,7 +93,7 @@
         <i class="cil-list-numbered c-sidebar-nav-icon"></i>
         Grade Levels
       </a>
-    </li>
+    </li> -->
   @endrole
 
   <li class="c-sidebar-nav-item">

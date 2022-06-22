@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{GuidelineKnapsack, CriteriaKnapsack};
+use App\Models\{GuidelinePatisserie, CriteriaPatisserie};
 use Illuminate\Http\Request;
-
-class GuidelineKnapsackController extends Controller
+use DB;
+class GuidelinePatisserieController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($knapsackcrits_id)
+    public function index($patisseriecrits_id)
     {
-        $getKnapsackCrit =  CriteriaKnapsack::where('id', $knapsackcrits_id)->first();
-        $getKnapsackGuidlines = GuidelineKnapsack::where('knapsack_crit_id', $knapsackcrits_id)->get();
-        return view('knapsackcrits.knapsackGuidelines', compact('getKnapsackGuidlines', 'getKnapsackCrit'));
-    
+        $getPatesserieCrit =  CriteriaPatisserie::where('id', $patisseriecrits_id)->first();
+        $getPatesserieGuidlines = GuidelinePatisserie::where('patisserie_crit_id', $patisseriecrits_id)->get();
+        return view('patisseriecrits.patisserieGuidelines', compact('getPatesserieGuidlines', 'getPatesserieCrit'));
     }
 
     /**
@@ -39,21 +38,21 @@ class GuidelineKnapsackController extends Controller
     public function store(Request $request)
     {
         $data = array();
-        $data['knapsack_crits_id'] = $request->knapsack_crits_id; 
+        $data['patisserie_crit_id'] = $request->patisserie_crit_id; 
         $data['gd_name'] = $request->gd_name;
         $data['gd_total'] = $request->gd_total;
 
-        DB::table('guideline_knapsacks')->insert($data);
+        DB::table('guideline_patisseries')->insert($data);
         return redirect()->back()->with('success','Successfully Created Guidelines!!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\GuidelineKnapsack  $guidelineKnapsack
+     * @param  \App\Models\GuidelinePatisserie  $guidelinePatisserie
      * @return \Illuminate\Http\Response
      */
-    public function show(GuidelineKnapsack $guidelineKnapsack)
+    public function show(GuidelinePatisserie $guidelinePatisserie)
     {
         //
     }
@@ -61,10 +60,10 @@ class GuidelineKnapsackController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\GuidelineKnapsack  $guidelineKnapsack
+     * @param  \App\Models\GuidelinePatisserie  $guidelinePatisserie
      * @return \Illuminate\Http\Response
      */
-    public function edit(GuidelineKnapsack $guidelineKnapsack)
+    public function edit(GuidelinePatisserie $guidelinePatisserie)
     {
         //
     }
@@ -73,10 +72,10 @@ class GuidelineKnapsackController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\GuidelineKnapsack  $guidelineKnapsack
+     * @param  \App\Models\GuidelinePatisserie  $guidelinePatisserie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GuidelineKnapsack $guidelineKnapsack)
+    public function update(Request $request, GuidelinePatisserie $guidelinePatisserie)
     {
         //
     }
@@ -84,10 +83,10 @@ class GuidelineKnapsackController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\GuidelineKnapsack  $guidelineKnapsack
+     * @param  \App\Models\GuidelinePatisserie  $guidelinePatisserie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GuidelineKnapsack $guidelineKnapsack)
+    public function destroy(GuidelinePatisserie $guidelinePatisserie)
     {
         //
     }

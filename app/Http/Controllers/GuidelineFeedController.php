@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GuidelineFeed;
+use App\Models\{GuidelineFeed, CriteriaFeed};
 use Illuminate\Http\Request;
 
 class GuidelineFeedController extends Controller
@@ -12,9 +12,11 @@ class GuidelineFeedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($feedcrits_id)
     {
-        //
+        $getFeedCrit =  CriteriaFeed::where('id', $feedcrits_id)->first();
+        $getFeedGuidlines = GuidelineFeed::where('feed_crit_id', $feedcrits_id)->get();
+        return view('knapsackcrits.knapsackGuidelines', compact('getFeedGuidlines', 'getFeedCrit'));
     }
 
     /**
@@ -35,7 +37,13 @@ class GuidelineFeedController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = array();
+        $data['feed_crits_id'] = $request->feed_crits_id; 
+        $data['gd_name'] = $request->gd_name;
+        $data['gd_total'] = $request->gd_total;
+
+        DB::table('guideline_feeds')->insert($data);
+        return redirect()->back()->with('success','Successfully Created Guidelines!!');
     }
 
     /**
