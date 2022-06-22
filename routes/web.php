@@ -13,10 +13,10 @@ Route::group(['middleware' => ['auth']],function() {
         Route::group(['middleware' => ['role:admin|Judge']],function() { 
 
             
-            Route::post('/submitScoreAsexual/{tti_id}/{quali_id}/{crit_id}/{id}','QualificationController@submitScoreAsexual');
-            Route::get('/scoreForAsexual/{id}/{quali_id}/{tti_id}/{crit_id}','QualificationController@scoreForAsexual');
+            Route::post('/submitScoreAsexual/{tti_id}/{quali_id}/{crit_id}/{id}','ScoreAsexualController@submitScoreAsexual');
+            Route::get('/scoreForAsexual/{id}/{quali_id}/{tti_id}/{crit_id}','ScoreAsexualController@scoreForAsexual');
             Route::get('/guidelinesAsexual/{asexualcrits_id}','GuidelineAsexualController@index');
-            Route::get('/showCritsForAsexual/{id}/{quali_id}/{tti_id}','QualificationController@showCritsForAsexual'); //FOR ASEXUAL QUALI
+            Route::get('/showCritsForAsexual/{id}/{quali_id}/{tti_id}','ScoreAsexualController@showCritsForAsexual'); //FOR ASEXUAL QUALI
 
             Route::get('/guidelinesFeed/{feedcrits_id}','GuidelineFeedController@index');
             Route::get('/showCritsForFeed/{id}/{quali_id}/{tti_id}','QualificationController@showCritsForFeed');
