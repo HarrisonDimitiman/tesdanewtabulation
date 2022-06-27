@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{ScoreAsexual, GuidelineAsexual, CriteriaAsexual, CriteriaFeed, GuidelineFeed, ScoreFeed};
+use App\Models\{ScoreAsexual, GuidelineAsexual, CriteriaAsexual, CriteriaFeed, GuidelineFeed, ScoreFeed, User, Contestant};
 use Illuminate\Http\Request;
 use DB;
 use Auth;
@@ -28,8 +28,6 @@ class ScoreAsexualController extends Controller
         if ($quali_id == 2) //FEED
         {
             $title = "FEED";
-            
-           
             $crit = CriteriaFeed::where('quali_id',$quali_id)->get();
             $arrLength = count($crit);
 
@@ -38,6 +36,7 @@ class ScoreAsexualController extends Controller
                 $ifAlreadyScore = ScoreFeed::where('quali_id',$quali_id)
                     ->where('feed_crit_id', $crit[$i]->id)
                     ->where('con_id', $id)
+                    ->where('score_feeds.user_id', Auth::user()->id)
                     ->first();
 
                 if ($ifAlreadyScore != '')
@@ -51,6 +50,8 @@ class ScoreAsexualController extends Controller
                 }
             }
 
+           
+
             $data = array();
             if($status == 0)
             {
@@ -59,6 +60,7 @@ class ScoreAsexualController extends Controller
                     $ifAlreadyScore = ScoreFeed::where('quali_id',$quali_id)
                         ->where('feed_crit_id', $crit[$i]->id)
                         ->where('con_id', $id)
+                        ->where('score_feeds.user_id', Auth::user()->id)
                         ->first();
                     if ($ifAlreadyScore != '')
                     {
@@ -78,7 +80,6 @@ class ScoreAsexualController extends Controller
                     }
                 }
                 $dataLength = count($data);
-                // return $data;
                 return view('qualification.showCritsForAsexual',compact('tti_id','quali_id','crit', 'id', 'title', 'data', 'dataLength'));
             }
             if($status == 1)
@@ -88,6 +89,7 @@ class ScoreAsexualController extends Controller
                     $ifAlreadyScore = ScoreFeed::where('quali_id',$quali_id)
                         ->where('feed_crit_id', $crit[$i]->id)
                         ->where('con_id', $id)
+                        ->where('score_feeds.user_id', Auth::user()->id)
                         ->first();
                     if ($ifAlreadyScore != '')
                     {
@@ -158,8 +160,6 @@ class ScoreAsexualController extends Controller
 
     public function submitScoreAsexual($tti_id, $quali_id, $crit_id, $id, Request $request)
     {
-        
-        
         $scoreAsexual = array();
         $scoreAsexual = $request->score_asexual;
         array_unshift($scoreAsexual,"");
@@ -172,9 +172,10 @@ class ScoreAsexualController extends Controller
         array_unshift($guideAsexualId,"");
         unset($guideAsexualId[0]);
         $arrLengthGuide = count($guideAsexualId);
-        
 
-        // dd($guideAsexualId);
+        $getJudge = User::where('tti_id','!=', $tti_id)->get();
+        $countJudge = count($getJudge);
+ 
         if ($quali_id == 1) //Asexual
         {
 
@@ -195,6 +196,19 @@ class ScoreAsexualController extends Controller
         if ($quali_id == 2) // FEED
         {
             // return $crit_id; 
+            $criteria = CriteriaFeed::where('quali_id',$quali_id)->get();
+            $countCrits = count($criteria);
+            $countAllGuidelineFeed = 0;
+            for($i = 0; $i < $countCrits; $i++)
+            {
+                $getGuideline = GuidelineFeed::where('feed_crit_id', $criteria[$i]->id)->get();
+                $countGuideline = count($getGuideline);
+                $countAllGuidelineFeed = $countAllGuidelineFeed + $countGuideline;
+            }
+            
+            $totalOfJudgeAndGuideline = $countAllGuidelineFeed*$countJudge;
+
+            
             for($i=1; $i <= $arrLength; $i++)
             {
                 $datas = array();
@@ -208,6 +222,27 @@ class ScoreAsexualController extends Controller
 
                 DB::table('score_feeds')->insert($datas);
             }
+
+            $getScoreContestantPerTTIAndQuali = ScoreFeed::join('contestants', 'contestants.id', 'score_feeds.con_id')
+                ->where('contestants.tti_id', $tti_id)
+                ->where('score_feeds.quali_id', $quali_id)
+                ->where('score_feeds.con_id', $id)
+                ->get();
+            $countScoreContestantPerTTIAndQuali = count($getScoreContestantPerTTIAndQuali);
+            
+            if($totalOfJudgeAndGuideline == $countScoreContestantPerTTIAndQuali)
+            {
+                $sumOfAllTotalPerContestant = 0;
+                for($i = 0; $i < $countScoreContestantPerTTIAndQuali; $i++)
+                {
+                    $sumOfAllTotalPerContestant = $sumOfAllTotalPerContestant + $getScoreContestantPerTTIAndQuali[$i]->total;
+                }
+                $data = array();
+                $data['overAllTotal'] = $sumOfAllTotalPerContestant;
+
+                DB::table('score_feeds')->where('con_id', $id)->update($data);
+            }
+            
         }
         
         return redirect()->back()->with('success','Successfully Score Contestant!!');

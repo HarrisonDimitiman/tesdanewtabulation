@@ -19,16 +19,15 @@
           </thead>
           
           <tbody>
-            
-                @foreach ($getAsexualGuidlines as $getAsexualGuidlines )
-                <tr>
-                  <td>{{ $getAsexualGuidlines->gd_name}}</td>
-                  <td>
-                    <input type="number" name="score_asexual[]" required max="{{ $getAsexualGuidlines->gd_total }}">
-                    <input type="hidden" name="guideAsexualId[]" required value="{{ $getAsexualGuidlines->id }}">
-                  </td>
-                </tr>
-                @endforeach
+              @foreach ($getAsexualGuidlines as $getAsexualGuidlines )
+              <tr>
+                <td>{{ $getAsexualGuidlines->gd_name}}</td>
+                <td>
+                  <input type="number" name="score_asexual[]" required max="{{ $getAsexualGuidlines->gd_total }}">
+                  <input type="hidden" name="guideAsexualId[]" required value="{{ $getAsexualGuidlines->id }}">
+                </td>
+              </tr>
+              @endforeach
                 
           </tbody>
         </table>

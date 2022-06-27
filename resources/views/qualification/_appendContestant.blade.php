@@ -1,5 +1,23 @@
+
+<div class="card-body">
+    <div class="float-right ">
+        <div class="row mb-2">
+            @if ( $status == 1)
+                <span class="badge badge-success float-right " style="font-size:10px;">Completed</span>
+            @elseif ( $status == 0 )
+                @if ($tti_id == Auth::user()->tti_id)
+                    <span class="badge badge-secondary float-right " style="font-size:10px;">Compatriot</span>
+                @else
+                    <span class="badge badge-secondary float-right " style="font-size:10px;">Not Yet Completed</span>
+                @endif
+            @endif
+        </div>
+    </div>
+</div>
+
 @foreach($getCo as $as)
     <div id="contestant-card-{{ $as->tti_id }}">
+        
         <div class="card-body">
             <div class="row">
                 <div class="col-2"><img src="{{asset('public/'.$as->con_image) }}" width="45" height="40" alt="logo"></div>

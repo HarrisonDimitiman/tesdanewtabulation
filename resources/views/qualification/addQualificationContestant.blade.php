@@ -10,7 +10,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <a class="btn btn-success btn-sm float-right mb-3 addCon">Add</a>
+                {{-- <a class="btn btn-success btn-sm float-right mb-3 addCon">Add</a> --}}
                 <div class="mt-2">
                   <label for="program">Name:</label>
                   <input type="text" required class="form-control" name="con_name">
@@ -20,7 +20,7 @@
                   <input type="text" required class="form-control" name="con_gender">
                 </div>
 
-               <div class="con mt-2">
+               {{-- <div class="con mt-2">
                 <a class="btn btn-danger btn-sm float-right mb-3 removeCon">Remove</a>
                 <label for="program">Name:</label>
                 <input type="text" required class="form-control" name="con_name">
@@ -28,7 +28,7 @@
                 <input type="text" required class="form-control" name="con_age">
                 <label for="program">Gender:</label>
                 <input type="text" required class="form-control" name="con_gender">
-               </div>
+               </div> --}}
 
                 <input type="hidden" name="quali_id" value="{{ $getQuali->id }}">
                 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Qualification, Contestant, Institutions, CriteriaAsexual, GuidelineAsexual, ScoreFeed, CriteriaFeed};
+use App\Models\{Qualification, Contestant, Institutions, CriteriaAsexual, GuidelineAsexual, ScoreFeed, CriteriaFeed, User, GuidelineFeed};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
@@ -73,15 +73,15 @@ class QualificationController extends Controller
                         // dd($checkIfAllContestantIsAlreadyScored);
                         // $data[$x]['data'] = $checkIfAllContestantIsAlreadyScored;
 
-                        if ($checkIfAllContestantIsAlreadyScored != '')
-                        {
-                            $status = 1;
-                        }
-                        else
-                        {
-                            $status = 0;
-                            break;
-                        }
+                        // if ($checkIfAllContestantIsAlreadyScored != '')
+                        // {
+                        //     $status = 1;
+                        // }
+                        // else
+                        // {
+                        //     $status = 0;
+                        //     break;
+                        // }
                         // dd($checkIfAllContestantIsAlreadyScored);
                     }
                 }
@@ -199,10 +199,54 @@ class QualificationController extends Controller
 
     public function contestantShow($tti_id, $quali_id)
     {
-        $getCo=Contestant::where('tti_id',$tti_id)->where('quali_id',$quali_id)->get();
-        return view('qualification._appendContestant',compact('getCo','tti_id','quali_id'));
+        $getJudge = User::where('tti_id','!=', $tti_id)->get();
+        $countJudge = count($getJudge);
+        $getCo=Contestant::where('tti_id',$tti_id)
+            ->where('quali_id',$quali_id)
+            ->get();
+        $countContestant = count($getCo);
+
+        if($quali_id == 1) // ASEXUAL
+        {
+            echo "<pre>";
+            print_r("NAA KAS ASEXUAL");
+            echo "</pre>";
+        }
+        if($quali_id == 2) // FEED
+        {
+            $criteria = CriteriaFeed::where('quali_id',$quali_id)->get();
+            $countCrits = count($criteria);
+            $countAllGuidelineFeed = 0;
+            for($i = 0; $i < $countCrits; $i++)
+            {
+                $getGuideline = GuidelineFeed::where('feed_crit_id', $criteria[$i]->id)->get();
+                $countGuideline = count($getGuideline);
+                $countAllGuidelineFeed = $countAllGuidelineFeed + $countGuideline;
+            }
+            
+            $totalOfJudgeAndGuideline = $countAllGuidelineFeed*$countJudge;
+            $overAllTotal = $totalOfJudgeAndGuideline*$countContestant;
+
+            $getScoreContestantPerTTIAndQuali = ScoreFeed::join('contestants', 'contestants.id', 'score_feeds.con_id')
+                ->where('contestants.tti_id', $tti_id)
+                ->where('score_feeds.quali_id', $quali_id)
+                ->get();
+            $countScoreContestantPerTTIAndQuali = count($getScoreContestantPerTTIAndQuali);
+
+            
+            if($countScoreContestantPerTTIAndQuali == $overAllTotal)
+            {
+                $status = 1;
+                return view('qualification._appendContestant',compact('getCo','tti_id','quali_id', 'status'));
+            }
+            else
+            {
+                $status = 0;
+                return view('qualification._appendContestant',compact('getCo','tti_id','quali_id', 'status'));
+            }
+        }
     }
-    
+
    
 
     /**

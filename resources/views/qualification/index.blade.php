@@ -1,5 +1,3 @@
-
-
 @extends('dashboard.base')
 
 @section('content')
@@ -49,7 +47,7 @@
                                {{$con->tti_name}}
                                 </a>
                             </div>
-                            <div class="col-2 p-0 align-self-end">
+                            {{-- <div class="col-2 p-0 align-self-end">
                                 <div class="row mb-2">
                                     @if ( $con->tti_id== Auth::user()->tti_id)
                                         <span class="badge badge-secondary float-right " style="font-size:10px;">Compatriot</span>
@@ -58,7 +56,7 @@
                                     @endif
                                 </div>
                                 <div class="row"><h6 class="mt-auto bd-highlight float-right" style="font-size:10px;">{{$con->tti_abrv}}</h6></div>
-                            </div>
+                            </div> --}}
                         </div>
                     </h5>
                 </div>
@@ -112,7 +110,7 @@
       
     });
 </script>
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(".con").hide();
     $(".addCon").click(function(){
         $(".con").val(null);
@@ -122,7 +120,7 @@
         $(':input').val('');
         $(".con").hide();
     });
-</script>
+</script> --}}
 <script>
      $(document).ready(function() {
         $("#form").submit(function() {
