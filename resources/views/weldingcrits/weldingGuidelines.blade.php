@@ -1,17 +1,17 @@
 @extends('dashboard.base')
 
 @section('content')
-@include('restaurantcrits._createGuideline')
+@include('weldingcrits._createGuideline')
 
 
 <div class="container-fluid">
     <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb">
-         <a href="{{ URL::to('/restaurantcrits') }}">
-          <li class="breadcrumb-item" aria-current="page">Criteria Restaurant Services</li>
+         <a href="{{ URL::to('/weldingcrits') }}">
+          <li class="breadcrumb-item" aria-current="page">Criteria Welding</li>
          </a>
          &nbsp;/&nbsp;
-          <li class="breadcrumb-item active " aria-current="page">Guideline Restaurant Services</li>
+          <li class="breadcrumb-item active " aria-current="page">Guideline Welding</li>
         </ol>
       </nav>
         <div class="fadeIn">
@@ -21,8 +21,8 @@
                         <div class="card-header d-flex">
                         <h4>
                             <i class="fa fa-align-justify"></i>
-                             {{ __('Restaurant Services Management for') }} {{ $getRestaurantCrit->crit_name }}</h4>
-                            <button class="btn btn-primary ml-auto" type="button" data-toggle="modal" data-target="#restaurantCritsCreate">
+                             {{ __('Welding Management for Guidelines') }} {{ $getWeldingCrit->crit_name }}</h4>
+                            <button class="btn btn-primary ml-auto" type="button" data-toggle="modal" data-target="#weldingCritsCreate">
                                 <i class="cil-plus"></i>
                                 Create
                             </button>          		
@@ -40,11 +40,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($getRestaurantGuidlines as $getRestaurantGuidlines)
+                                    @foreach($getWeldingGuidlines as $getWeldingGuidlines)
                                         <tr>
                                             <td>{{ $loop->iteration ?? '' }}</td>
-                                            <td>{{ $getRestaurantGuidlines->gd_name ?? '' }}</td>
-                                            <td>{{ $getRestaurantGuidlines->gd_total ?? '' }}</td>
+                                            <td>{{ $getWeldingGuidlines->gd_name ?? '' }}</td>
+                                            <td>{{ $getWeldingGuidlines->gd_total ?? '' }}</td>
                                             <td style="width: 9%;">
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

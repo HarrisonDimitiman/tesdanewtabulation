@@ -55,6 +55,11 @@
             Patisserie & Confectionary
           </li>
        </a>
+       <a  href="{{ route('weldingcrits.index') }}">
+        <li class="c-sidebar-nav-link" >
+          Welding
+        </li>
+     </a>
     </ul>
   </li>
   <li class="c-sidebar-nav-title">@lang('Qualification')</li>

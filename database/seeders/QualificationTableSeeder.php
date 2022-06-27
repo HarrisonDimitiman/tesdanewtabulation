@@ -16,6 +16,6 @@ class QualificationTableSeeder extends Seeder
         Qualification::create(['id' => '5', 'quali_name' => 'Cooking', 'image' => '']); 
         Qualification::create(['id' => '6', 'quali_name' => 'Restaurant Service', 'image' => '']); 
         Qualification::create(['id' => '7', 'quali_name' => 'Patisserie & Confectionary', 'image' => '']); 
-        Qualification::create(['id' => '8', 'quali_name' => 'Electrical Installation', 'image' => '']); 
+        Qualification::create(['id' => '8', 'quali_name' => 'Welding', 'image' => '']); 
     }
 }

@@ -13,17 +13,17 @@ Route::group(['middleware' => ['auth']],function() {
         Route::group(['middleware' => ['role:admin|Judge']],function() { 
             
             Route::get('/feedsGenerateTopTen/{quali_id}','QualificationController@feedsGenerateTopTen');
-            Route::post('/submitScoreAsexual/{tti_id}/{quali_id}/{crit_id}/{id}','ScoreAsexualController@submitScoreAsexual');
+            Route::post('/submitScoreAsexual/{tti_id}/{quali_id}/{crit_id}/{id}','ScoreAsexualController@submitScoreAsexual');  //vopy
+            Route::get('/scoreForAsexual/{id}/{quali_id}/{tti_id}/{crit_id}','ScoreAsexualController@scoreForAsexual'); //vopy
 
-            Route::get('/showScore/{id}/{quali_id}/{tti_id}/{crit_id}','ScoreAsexualController@showScore');
-            Route::get('/scoreForAsexual/{id}/{quali_id}/{tti_id}/{crit_id}','ScoreAsexualController@scoreForAsexual');
+            Route::get('/showScore/{id}/{quali_id}/{tti_id}/{crit_id}','ScoreAsexualController@showScore'); //vopy
+            Route::get('/scoreForAsexual/{id}/{quali_id}/{tti_id}/{crit_id}','ScoreAsexualController@scoreForAsexual'); //vopy
+            Route::get('/showCritsForAsexual/{id}/{quali_id}/{tti_id}','ScoreAsexualController@showCritsForAsexual'); //vopy
 
             Route::get('/guidelinesAsexual/{asexualcrits_id}','GuidelineAsexualController@index');
-            Route::get('/showCritsForAsexual/{id}/{quali_id}/{tti_id}','ScoreAsexualController@showCritsForAsexual'); //FOR ASEXUAL QUALI
-
+          
             Route::get('/guidelinesFeed/{feedcrits_id}','GuidelineFeedController@index');
-            Route::get('/showCritsForFeed/{id}/{quali_id}/{tti_id}','QualificationController@showCritsForFeed');
-
+          
             Route::get('/guidelinesKnapsack/{knapsackcrits_id}','GuidelineKnapsackController@index');
 
             Route::get('/guidelinesBaking/{bakingcrits_id}','GuidelineBakingController@index');
@@ -33,6 +33,8 @@ Route::group(['middleware' => ['auth']],function() {
             Route::get('/guidelinesRestaurant/{restaurantcrits_id}','GuidelineRestaurantController@index');
 
             Route::get('/guidelinesPatisserie/{patisseriecrits_id}','GuidelinePatisserieController@index');
+
+            Route::get('/guidelinesWelding/{weldingcrits_id}','GuidelineWeldingController@index');
 
 
             Route::get('/contestantShow/{tti_id}/{quali_id}','QualificationController@contestantShow');
@@ -53,7 +55,9 @@ Route::group(['middleware' => ['auth']],function() {
             Route::resource('restaurantcrits','CriteriaRestaurantController');
             Route::resource('restaurantguidelines','GuidelineRestaurantController');
             Route::resource('patisseriecrits','CriteriaPatisserieController');
-            Route::resource('patisserieguidelines','GuidelinePatisserieController'); 
+            Route::resource('patisserieguidelines','GuidelinePatisserieController');
+            Route::resource('weldingcrits','CriteriaWeldingController');
+            Route::resource('weldingguidelines','GuidelineWeldingController');
         });
     });    
 });

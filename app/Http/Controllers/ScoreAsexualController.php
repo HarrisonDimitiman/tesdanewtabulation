@@ -194,7 +194,7 @@ class ScoreAsexualController extends Controller
         }
         if ($quali_id == 2) // FEED
         {
-            // return $crit_id;
+            // return $crit_id; 
             for($i=1; $i <= $arrLength; $i++)
             {
                 $datas = array();

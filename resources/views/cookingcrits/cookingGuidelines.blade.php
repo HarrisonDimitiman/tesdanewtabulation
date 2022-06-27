@@ -5,11 +5,15 @@
 
 
 <div class="container-fluid">
-    {{-- <nav aria-label="breadcrumb" role="navigation">
+    <nav aria-label="breadcrumb" role="navigation">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Institution</li>
+       <a href="{{ URL::to('/cookingcrits') }}">
+        <li class="breadcrumb-item" aria-current="page">Criteria Cooking</li>
+       </a>
+       &nbsp;/&nbsp;
+        <li class="breadcrumb-item active " aria-current="page">Guideline Cooking</li>
       </ol>
-    </nav> --}}
+    </nav>
         <div class="fadeIn">
             <div class="row">
                 <div class="col-lg-12">
@@ -17,7 +21,7 @@
                         <div class="card-header d-flex">
                         <h4>
                             <i class="fa fa-align-justify"></i>
-                             {{ __('Cooking Management for') }} {{ $getCookingCrit->crit_name }}</h4>
+                             {{ __('Cooking Management for Guideline') }} {{ $getCookingCrit->crit_name }}</h4>
                             <button class="btn btn-primary ml-auto" type="button" data-toggle="modal" data-target="#cookingCritsCreate">
                                 <i class="cil-plus"></i>
                                 Create

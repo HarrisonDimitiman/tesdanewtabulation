@@ -1,19 +1,15 @@
 @extends('dashboard.base')
 
 @section('content')
-@include('restaurantcrits._createGuideline')
+@include('weldingcrits._create')
 
 
 <div class="container-fluid">
-    <nav aria-label="breadcrumb" role="navigation">
-        <ol class="breadcrumb">
-         <a href="{{ URL::to('/restaurantcrits') }}">
-          <li class="breadcrumb-item" aria-current="page">Criteria Restaurant Services</li>
-         </a>
-         &nbsp;/&nbsp;
-          <li class="breadcrumb-item active " aria-current="page">Guideline Restaurant Services</li>
-        </ol>
-      </nav>
+    {{-- <nav aria-label="breadcrumb" role="navigation">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Institution</li>
+      </ol>
+    </nav> --}}
         <div class="fadeIn">
             <div class="row">
                 <div class="col-lg-12">
@@ -21,8 +17,8 @@
                         <div class="card-header d-flex">
                         <h4>
                             <i class="fa fa-align-justify"></i>
-                             {{ __('Restaurant Services Management for') }} {{ $getRestaurantCrit->crit_name }}</h4>
-                            <button class="btn btn-primary ml-auto" type="button" data-toggle="modal" data-target="#restaurantCritsCreate">
+                             {{ __('Welding Management') }}</h4>
+                            <button class="btn btn-primary ml-auto" type="button" data-toggle="modal" data-target="#weldingCritsCreate">
                                 <i class="cil-plus"></i>
                                 Create
                             </button>          		
@@ -34,17 +30,17 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Guideline Name</th>
-                                        <th>Guideline Percentage</th>
+                                        <th>Criteria Name</th>
+                                        <th>Criteria Percentage</th>
                                         <th width="9%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($getRestaurantGuidlines as $getRestaurantGuidlines)
+                                @foreach($getWeldingCrits as $getWeldingCrits)
                                         <tr>
                                             <td>{{ $loop->iteration ?? '' }}</td>
-                                            <td>{{ $getRestaurantGuidlines->gd_name ?? '' }}</td>
-                                            <td>{{ $getRestaurantGuidlines->gd_total ?? '' }}</td>
+                                            <td>{{ $getWeldingCrits->crit_name ?? '' }}</td>
+                                            <td>{{ $getWeldingCrits->crit_percentage ?? '' }}</td>
                                             <td style="width: 9%;">
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,7 +51,10 @@
                                                             <i class="cil-pencil"></i>
                                                             &nbsp;Update
                                                         </button>
-                                                        
+                                                        <a type="button" class="dropdown-item btn" href="{{ URL::to('/guidelinesWelding/'.$getWeldingCrits->id) }}">
+                                                            <i class="cil-magnifying-glass"></i>
+                                                            &nbsp;View Guidelines
+                                                        </a>
                                                         <form action="" method="post">
                                                         @csrf
                                                         @method('DELETE')
@@ -68,7 +67,7 @@
                                                 </div>    
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach 
                                 </tbody>
                             </table>
                         </div>

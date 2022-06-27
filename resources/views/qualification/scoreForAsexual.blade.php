@@ -8,13 +8,13 @@
           </button>
         </div>
         <div class="modal-body">
-        <form action="{{ URL::to('/submitScoreAsexual/'.$tti_id.'/'.$quali_id.'/'.$crit_id.'/'.$id) }}" method="POST">
+        <form action="{{ URL::to('/submitScoreAsexual/'.$tti_id.'/'.$quali_id.'/'.$crit_id.'/'.$id) }}" method="POST" id="form">
             @csrf
          <table class="table">
           <thead>
             <tr>
               <th scope="col">Guidelines {{ $crit_id }}</th>
-              <th scope="col">Action</th>
+              <th scope="col">Score</th>
             </tr>
           </thead>
           

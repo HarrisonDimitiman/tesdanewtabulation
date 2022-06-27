@@ -20,7 +20,7 @@
             
             <div class="card-header" style="background-image: url('assets/img/vgd.png');width: 100%;height: 90px; margin-left: auto;margin-right: auto; display: block;">
                 <div class="card mt-3" style="height:30px; opacity: 0.9;">
-                    <strong style="font-size:15px;" class="mt-1 text-center"><strong style="color:ffffff;"> Get Judge</strong></strong> 
+                    <strong style="font-size:15px;" class="mt-1 text-center"><strong style="color:ffffff;"> {{ $getQuali ->quali_name }}</strong></strong> 
                 </div>
             </div>
             <div class="row justify-content-end pt-1" >
@@ -111,8 +111,25 @@
         }
       
     });
-
-    
-  
+</script>
+<script type="text/javascript">
+    $(".con").hide();
+    $(".addCon").click(function(){
+        $(".con").val(null);
+        $(".con").show();
+    });
+    $(".removeCon").click(function(){
+        $(':input').val('');
+        $(".con").hide();
+    });
+</script>
+<script>
+     $(document).ready(function() {
+        $("#form").submit(function() {
+            $(this).submit(function() {
+                return false;
+            });
+            return true;
+        });
 </script>
 @endsection

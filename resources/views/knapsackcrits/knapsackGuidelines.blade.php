@@ -5,11 +5,15 @@
 
 
 <div class="container-fluid">
-    {{-- <nav aria-label="breadcrumb" role="navigation">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Institution</li>
-      </ol>
-    </nav> --}}
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+         <a href="{{ URL::to('/knapsackcrits') }}">
+          <li class="breadcrumb-item" aria-current="page">Criteria Knapsack Sprayer Calibration</li>
+         </a>
+         &nbsp;/&nbsp;
+          <li class="breadcrumb-item active " aria-current="page">Guideline Knapsack Sprayer Calibration</li>
+        </ol>
+      </nav>
         <div class="fadeIn">
             <div class="row">
                 <div class="col-lg-12">
