@@ -14,7 +14,7 @@
                 <input type="text" required class="form-control" name="gd_name">
                 <label for="program">Guidelines Percentage:</label>
                 <input type="text" required class="form-control" name="gd_total">
-                <input type="hidden" name="asexual_crits_id" value="{{ $getFeedCrit->id }}">
+                <input type="hidden" name="feed_crit_id" value="{{ $getFeedCrit->id }}">
               </div>
             
               <div class="modal-footer">

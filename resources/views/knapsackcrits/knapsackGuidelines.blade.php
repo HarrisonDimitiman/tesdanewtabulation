@@ -17,7 +17,7 @@
                         <div class="card-header d-flex">
                         <h4>
                             <i class="fa fa-align-justify"></i>
-                             {{ __('Knapsack Sprayer Calibration Guidelines Management for') }} {{ $getKnapsackCrit->crit_name }}</h4>
+                             {{ __('Knapsack Sprayer Calibration Guidelines Management for') }} {{ $getFeedCrit->crit_name }}</h4>
                             <button class="btn btn-primary ml-auto" type="button" data-toggle="modal" data-target="#knapsackCritsCreate">
                                 <i class="cil-plus"></i>
                                 Create

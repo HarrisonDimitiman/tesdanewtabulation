@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Qualification, Contestant, Institutions, CriteriaAsexual, GuidelineAsexual};
+use App\Models\{Qualification, Contestant, Institutions, CriteriaAsexual, GuidelineAsexual, ScoreFeed, CriteriaFeed};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
@@ -20,11 +20,156 @@ class QualificationController extends Controller
     {
         $getQuali = Qualification::where('id', $quali_id)->first();
         $tti = Institutions::get();
-        $getContestant=Contestant::join('institutions','institutions.id','contestants.tti_id')
+
+
+        $getTti = Institutions::where('id',"!=",Auth::user()->tti_id)->get();
+        $countTti = count($getTti);
+
+        $getContestant = Contestant::join('institutions','institutions.id','contestants.tti_id')
                     ->where('quali_id',$quali_id)
                     ->get()
                     ->keyBy('tti_name');
+
+        $getContestantThatCanBeScore = Contestant::join('institutions','institutions.id','contestants.tti_id')
+                    ->where('quali_id',$quali_id)
+                    ->where('tti_id',"!=",Auth::user()->tti_id)
+                    ->select('contestants.id')
+                    ->get();
+        $arrLength = count($getContestantThatCanBeScore);
+
+        if($quali_id == 1) // ASEXUAL
+        {
+            return "ASEXUAL NI SIYA :D";
+        }
+        if($quali_id == 2) // FEEDS
+        {
+            $ifAlreadyScoreAllContestant = ScoreFeed::where('quali_id',$quali_id)
+                ->get()
+                ->keyBy('con_id');
+
+            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
+
+            $getCriteriaFeed = CriteriaFeed::get();
+            $countCriteriaFeed = count($getCriteriaFeed);
+
+
+            // dd($getContestantThatCanBeScore);
+            $data = array();
+            for($i = 0; $i < $countTti; $i++)
+            {
+                for($j = 0; $j < $arrLength; $j++)
+                {
+                    for($x = 0; $x < $countCriteriaFeed; $x++)
+                    {
+                        $checkIfAllContestantIsAlreadyScored = ScoreFeed::where('score_feeds.con_id', $getContestantThatCanBeScore[$j]->id)
+                            ->where('score_feeds.feed_crit_id', $getCriteriaFeed[$x]->id)
+                            ->where('quali_id',$quali_id)
+                            ->first();
+
+
+                        // echo "<pre>";
+                        // print_r($checkIfAllContestantIsAlreadyScored);
+                        // echo "</pre>";
+                        // dd($checkIfAllContestantIsAlreadyScored);
+                        // $data[$x]['data'] = $checkIfAllContestantIsAlreadyScored;
+
+                        if ($checkIfAllContestantIsAlreadyScored != '')
+                        {
+                            $status = 1;
+                        }
+                        else
+                        {
+                            $status = 0;
+                            break;
+                        }
+                        // dd($checkIfAllContestantIsAlreadyScored);
+                    }
+                }
+            }
+            // dd($status);
+          
+        }
         return view('qualification.index', compact('getQuali', 'getContestant', 'tti'));
+    }
+
+    public function feedsGenerateTopTen($quali_id)
+    {
+        $getQuali = Qualification::where('id', $quali_id)->first();
+        $tti = Institutions::get();
+
+
+        $getTti = Institutions::where('id',"!=",Auth::user()->tti_id)->get();
+        $countTti = count($getTti);
+
+        $getContestant = Contestant::join('institutions','institutions.id','contestants.tti_id')
+                    ->where('quali_id',$quali_id)
+                    ->get()
+                    ->keyBy('tti_name');
+
+        $getContestantThatCanBeScore = Contestant::join('institutions','institutions.id','contestants.tti_id')
+                    ->where('quali_id',$quali_id)
+                    ->where('tti_id',"!=",Auth::user()->tti_id)
+                    ->select('contestants.id')
+                    ->get();
+        $arrLength = count($getContestantThatCanBeScore);
+
+        if($quali_id == 1) // ASEXUAL
+        {
+            return "ASEXUAL NI SIYA :D";
+        }
+        if($quali_id == 2) // FEEDS
+        {
+            $ifAlreadyScoreAllContestant = ScoreFeed::where('quali_id',$quali_id)
+                ->get()
+                ->keyBy('con_id');
+
+            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
+
+            $getCriteriaFeed = CriteriaFeed::get();
+            $countCriteriaFeed = count($getCriteriaFeed);
+
+
+            // dd($getContestantThatCanBeScore);
+            $data = array();
+            for($i = 0; $i < $countTti; $i++)
+            {
+                for($j = 0; $j < $arrLength; $j++)
+                {
+                    for($x = 0; $x < $countCriteriaFeed; $x++)
+                    {
+                        $checkIfAllContestantIsAlreadyScored = ScoreFeed::where('score_feeds.con_id', $getContestantThatCanBeScore[$j]->id)
+                            ->where('score_feeds.feed_crit_id', $getCriteriaFeed[$x]->id)
+                            ->where('quali_id',$quali_id)
+                            ->first();
+
+                        if ($checkIfAllContestantIsAlreadyScored != '')
+                        {
+                            $status = 1;
+                        }
+                        else
+                        {
+                            $status = 0;
+                            break;
+                        }
+                     
+                    }
+                }
+            }
+            
+            if ($status == 1)
+            {
+                $generateTopTen = ScoreFeed::where('quali_id', $quali_id)
+                    ->orderBy('overAllTotal', 'desc')
+                    ->get()
+                    ->keyBy('overAllTotal');
+
+            }
+            else
+            {
+                 return redirect()->back()->with('error', "WALA PA NASCORAN TANAN");
+            }
+        }
+        // return view('qualification.index', compact('getQuali', 'getContestant', 'tti'));
     }
 
     public function contestantScore(Request $request)

@@ -11,6 +11,10 @@
         <i class="cil-plus"></i>
         Create
     </button> 
+    <a href="{{ URL::to('/feedsGenerateTopTen/'.$getQuali->id) }}"><button class="btn btn-primary ml-auto" type="button">
+        <i class="cil-plus"></i>
+        Generate Top 10
+    </button></a>
     <br><br>
     <div class="card">
             
@@ -48,9 +52,9 @@
                             <div class="col-2 p-0 align-self-end">
                                 <div class="row mb-2">
                                     @if ( $con->tti_id== Auth::user()->tti_id)
-                                    <span class="badge badge-secondary float-right " style="font-size:10px;">Compatriot</span>
+                                        <span class="badge badge-secondary float-right " style="font-size:10px;">Compatriot</span>
                                     @else
-                                    <span class="badge badge-success float-right " style="font-size:10px;">Completed</span>
+                                        <span class="badge badge-success float-right " style="font-size:10px;">Completed</span>
                                     @endif
                                 </div>
                                 <div class="row"><h6 class="mt-auto bd-highlight float-right" style="font-size:10px;">{{$con->tti_abrv}}</h6></div>

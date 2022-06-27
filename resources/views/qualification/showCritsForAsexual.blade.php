@@ -2,7 +2,7 @@
     <div class="modal-dialog " role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Criterias</h5>
+          <h5 class="modal-title" id="exampleModalLabel"> {{ $title }} Criterias</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -16,14 +16,19 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($crit as $crits )
+            @for($i = 0; $i < $dataLength; $i++)
             <tr>
-              <td>{{ $crits->crit_name}}</td>
+              <td>{{ $data[$i]['crit_name'] }}</td>
               <td>
-                <button class="btn btn-block btn-info btn-sm scoreForAsexual" type="button" data-url="{{ URL::to('/scoreForAsexual/'.$id.'/'.$quali_id.'/'.$tti_id.'/'.$crits->id) }}">Score</button>
+                @if ($data[$i]['status'] == 'Already Score')
+                  <button class="btn btn-block btn-info btn-sm showScore" type="button" data-url="{{ URL::to('/showScore/'.$id.'/'.$quali_id.'/'.$tti_id.'/'.$data[$i]['id']) }}"> View Score (Already Score)</button>
+                @else
+                  <button class="btn btn-block btn-info btn-sm scoreForAsexual" type="button" data-url="{{ URL::to('/scoreForAsexual/'.$id.'/'.$quali_id.'/'.$tti_id.'/'.$data[$i]['id']) }}"> Score</button>
+                @endif
+               
               </td>
             </tr>
-            @endforeach
+            @endfor
           </tbody>
         </table>
         </div>
@@ -37,6 +42,19 @@
 
   <script>
     $('.scoreForAsexual').click(function(){
+        var div = $('.append-appendScoreAxesual');
+        div.empty();
+        var url = $(this).data('url');
+        $.ajax({
+            url: url,
+            success:function(data){
+                div.append(data);
+                $('#appendScoreAxesual').modal('show');
+            }
+        });
+    });
+
+    $('.showScore').click(function(){
         var div = $('.append-appendScoreAxesual');
         div.empty();
         var url = $(this).data('url');
