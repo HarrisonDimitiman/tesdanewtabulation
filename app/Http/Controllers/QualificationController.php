@@ -22,485 +22,88 @@ class QualificationController extends Controller
         $tti = Institutions::get();
 
 
-        $getTti = Institutions::where('id',"!=",Auth::user()->tti_id)->get();
-        $countTti = count($getTti);
-
         $getContestant = Contestant::join('institutions','institutions.id','contestants.tti_id')
                     ->where('quali_id',$quali_id)
                     ->get()
                     ->keyBy('tti_name');
 
-        $getContestantThatCanBeScore = Contestant::join('institutions','institutions.id','contestants.tti_id')
-                    ->where('quali_id',$quali_id)
-                    ->where('tti_id',"!=",Auth::user()->tti_id)
-                    ->select('contestants.id')
-                    ->get();
-        $arrLength = count($getContestantThatCanBeScore);
-
-        if($quali_id == 1) // ASEXUAL
-        {
-           // return "ASEXUAL NI SIYA :D";
-           $ifAlreadyScoreAllContestant = ScoreAsexual::where('quali_id',$quali_id)
-           ->get()
-           ->keyBy('con_id');
-
-            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
-
-            $getCriteriaFeed = CriteriaAsexual::get();
-            $countCriteriaFeed = count($getCriteriaFeed);
-
-
-            // dd($getContestantThatCanBeScore);
-            $data = array();
-            for($i = 0; $i < $countTti; $i++)
-            {
-                for($j = 0; $j < $arrLength; $j++)
-                {
-                    for($x = 0; $x < $countCriteriaFeed; $x++)
-                    {
-                        $checkIfAllContestantIsAlreadyScored = ScoreAsexual::where('score_asexuals.con_id', $getContestantThatCanBeScore[$j]->id)
-                            ->where('score_asexuals.feed_crit_id', $getCriteriaFeed[$x]->id)
-                            ->where('quali_id',$quali_id)
-                            ->first();
-
-
-                        // echo "<pre>";
-                        // print_r($checkIfAllContestantIsAlreadyScored);
-                        // echo "</pre>";
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                        // $data[$x]['data'] = $checkIfAllContestantIsAlreadyScored;
-
-                        // if ($checkIfAllContestantIsAlreadyScored != '')
-                        // {
-                        //     $status = 1;
-                        // }
-                        // else
-                        // {
-                        //     $status = 0;
-                        //     break;
-                        // }
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                    }
-                }
-            }
-        }
-        if($quali_id == 2) // FEEDS
-        {
-            $ifAlreadyScoreAllContestant = ScoreFeed::where('quali_id',$quali_id)
-                ->get()
-                ->keyBy('con_id');
-
-            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
-
-            $getCriteriaFeed = CriteriaFeed::get();
-            $countCriteriaFeed = count($getCriteriaFeed);
-
-
-            // dd($getContestantThatCanBeScore);
-            $data = array();
-            for($i = 0; $i < $countTti; $i++)
-            {
-                for($j = 0; $j < $arrLength; $j++)
-                {
-                    for($x = 0; $x < $countCriteriaFeed; $x++)
-                    {
-                        $checkIfAllContestantIsAlreadyScored = ScoreFeed::where('score_feeds.con_id', $getContestantThatCanBeScore[$j]->id)
-                            ->where('score_feeds.feed_crit_id', $getCriteriaFeed[$x]->id)
-                            ->where('quali_id',$quali_id)
-                            ->first();
-
-
-                        // echo "<pre>";
-                        // print_r($checkIfAllContestantIsAlreadyScored);
-                        // echo "</pre>";
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                        // $data[$x]['data'] = $checkIfAllContestantIsAlreadyScored;
-
-                        // if ($checkIfAllContestantIsAlreadyScored != '')
-                        // {
-                        //     $status = 1;
-                        // }
-                        // else
-                        // {
-                        //     $status = 0;
-                        //     break;
-                        // }
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                    }
-                }
-            }
-            // dd($status);
-          
-        }
-        if($quali_id == 3) // KNAPSACK
-        {
-            $ifAlreadyScoreAllContestant = ScoreKnapsack::where('quali_id',$quali_id)
-                ->get()
-                ->keyBy('con_id');
-
-            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
-
-            $getCriteriaFeed = CriteriaKnapsack::get();
-            $countCriteriaFeed = count($getCriteriaFeed);
-
-
-            // dd($getContestantThatCanBeScore);
-            $data = array();
-            for($i = 0; $i < $countTti; $i++)
-            {
-                for($j = 0; $j < $arrLength; $j++)
-                {
-                    for($x = 0; $x < $countCriteriaFeed; $x++)
-                    {
-                        $checkIfAllContestantIsAlreadyScored = ScoreKnapsack::where('score_knapsacks.con_id', $getContestantThatCanBeScore[$j]->id)
-                            ->where('score_knapsacks.feed_crit_id', $getCriteriaFeed[$x]->id)
-                            ->where('quali_id',$quali_id)
-                            ->first();
-
-
-                        // echo "<pre>";
-                        // print_r($checkIfAllContestantIsAlreadyScored);
-                        // echo "</pre>";
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                        // $data[$x]['data'] = $checkIfAllContestantIsAlreadyScored;
-
-                        // if ($checkIfAllContestantIsAlreadyScored != '')
-                        // {
-                        //     $status = 1;
-                        // }
-                        // else
-                        // {
-                        //     $status = 0;
-                        //     break;
-                        // }
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                    }
-                }
-            }
-            // dd($status);
-          
-        }
-        if($quali_id == 4) // BAKING
-        {
-            $ifAlreadyScoreAllContestant = ScoreBaking::where('quali_id',$quali_id)
-                ->get()
-                ->keyBy('con_id');
-
-            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
-
-            $getCriteriaFeed = CriteriaBaking::get();
-            $countCriteriaFeed = count($getCriteriaFeed);
-
-
-            // dd($getContestantThatCanBeScore);
-            $data = array();
-            for($i = 0; $i < $countTti; $i++)
-            {
-                for($j = 0; $j < $arrLength; $j++)
-                {
-                    for($x = 0; $x < $countCriteriaFeed; $x++)
-                    {
-                        $checkIfAllContestantIsAlreadyScored = ScoreBaking::where('score_bakings.con_id', $getContestantThatCanBeScore[$j]->id)
-                            ->where('score_bakings.feed_crit_id', $getCriteriaFeed[$x]->id)
-                            ->where('quali_id',$quali_id)
-                            ->first();
-
-
-                        // echo "<pre>";
-                        // print_r($checkIfAllContestantIsAlreadyScored);
-                        // echo "</pre>";
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                        // $data[$x]['data'] = $checkIfAllContestantIsAlreadyScored;
-
-                        // if ($checkIfAllContestantIsAlreadyScored != '')
-                        // {
-                        //     $status = 1;
-                        // }
-                        // else
-                        // {
-                        //     $status = 0;
-                        //     break;
-                        // }
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                    }
-                }
-            }
-            // dd($status);
-          
-        }
-        if($quali_id == 5) // Cooking
-        {
-            $ifAlreadyScoreAllContestant = ScoreCooking::where('quali_id',$quali_id)
-                ->get()
-                ->keyBy('con_id');
-
-            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
-
-            $getCriteriaFeed = CriteriaCooking::get();
-            $countCriteriaFeed = count($getCriteriaFeed);
-
-
-            // dd($getContestantThatCanBeScore);
-            $data = array();
-            for($i = 0; $i < $countTti; $i++)
-            {
-                for($j = 0; $j < $arrLength; $j++)
-                {
-                    for($x = 0; $x < $countCriteriaFeed; $x++)
-                    {
-                        $checkIfAllContestantIsAlreadyScored = ScoreCooking::where('score_cookings.con_id', $getContestantThatCanBeScore[$j]->id)
-                            ->where('score_cookings.feed_crit_id', $getCriteriaFeed[$x]->id)
-                            ->where('quali_id',$quali_id)
-                            ->first();
-
-
-                        // echo "<pre>";
-                        // print_r($checkIfAllContestantIsAlreadyScored);
-                        // echo "</pre>";
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                        // $data[$x]['data'] = $checkIfAllContestantIsAlreadyScored;
-
-                        // if ($checkIfAllContestantIsAlreadyScored != '')
-                        // {
-                        //     $status = 1;
-                        // }
-                        // else
-                        // {
-                        //     $status = 0;
-                        //     break;
-                        // }
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                    }
-                }
-            }
-            // dd($status);
-          
-        }
-        if($quali_id == 6) // RESTAURANT
-        {
-            $ifAlreadyScoreAllContestant = ScoreRestaurant::where('quali_id',$quali_id)
-                ->get()
-                ->keyBy('con_id');
-
-            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
-
-            $getCriteriaFeed = CriteriaRestaurant::get();
-            $countCriteriaFeed = count($getCriteriaFeed);
-
-
-            // dd($getContestantThatCanBeScore);
-            $data = array();
-            for($i = 0; $i < $countTti; $i++)
-            {
-                for($j = 0; $j < $arrLength; $j++)
-                {
-                    for($x = 0; $x < $countCriteriaFeed; $x++)
-                    {
-                        $checkIfAllContestantIsAlreadyScored = ScoreRestaurant::where('score_restaurants.con_id', $getContestantThatCanBeScore[$j]->id)
-                            ->where('score_restaurants.feed_crit_id', $getCriteriaFeed[$x]->id)
-                            ->where('quali_id',$quali_id)
-                            ->first();
-
-
-                        // echo "<pre>";
-                        // print_r($checkIfAllContestantIsAlreadyScored);
-                        // echo "</pre>";
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                        // $data[$x]['data'] = $checkIfAllContestantIsAlreadyScored;
-
-                        // if ($checkIfAllContestantIsAlreadyScored != '')
-                        // {
-                        //     $status = 1;
-                        // }
-                        // else
-                        // {
-                        //     $status = 0;
-                        //     break;
-                        // }
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                    }
-                }
-            }
-            // dd($status);
-          
-        }
-        if($quali_id == 7) // PATISSeRIE
-        {
-            $ifAlreadyScoreAllContestant = ScorePatisserie::where('quali_id',$quali_id)
-                ->get()
-                ->keyBy('con_id');
-
-            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
-
-            $getCriteriaFeed = CriteriaPatisserie::get();
-            $countCriteriaFeed = count($getCriteriaFeed);
-
-
-            // dd($getContestantThatCanBeScore);
-            $data = array();
-            for($i = 0; $i < $countTti; $i++)
-            {
-                for($j = 0; $j < $arrLength; $j++)
-                {
-                    for($x = 0; $x < $countCriteriaFeed; $x++)
-                    {
-                        $checkIfAllContestantIsAlreadyScored = ScorePatisserie::where('score_patisseries.con_id', $getContestantThatCanBeScore[$j]->id)
-                            ->where('score_patisseries.feed_crit_id', $getCriteriaFeed[$x]->id)
-                            ->where('quali_id',$quali_id)
-                            ->first();
-
-
-                        // echo "<pre>";
-                        // print_r($checkIfAllContestantIsAlreadyScored);
-                        // echo "</pre>";
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                        // $data[$x]['data'] = $checkIfAllContestantIsAlreadyScored;
-
-                        // if ($checkIfAllContestantIsAlreadyScored != '')
-                        // {
-                        //     $status = 1;
-                        // }
-                        // else
-                        // {
-                        //     $status = 0;
-                        //     break;
-                        // }
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                    }
-                }
-            }
-            // dd($status);
-          
-        }
-        if($quali_id == 8) // WELDING
-        {
-            $ifAlreadyScoreAllContestant = ScoreWelding::where('quali_id',$quali_id)
-                ->get()
-                ->keyBy('con_id');
-
-            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
-
-            $getCriteriaFeed = CriteriaWelding::get();
-            $countCriteriaFeed = count($getCriteriaFeed);
-
-
-            // dd($getContestantThatCanBeScore);
-            $data = array();
-            for($i = 0; $i < $countTti; $i++)
-            {
-                for($j = 0; $j < $arrLength; $j++)
-                {
-                    for($x = 0; $x < $countCriteriaFeed; $x++)
-                    {
-                        $checkIfAllContestantIsAlreadyScored = ScoreWelding::where('score_weldings.con_id', $getContestantThatCanBeScore[$j]->id)
-                            ->where('score_weldings.feed_crit_id', $getCriteriaFeed[$x]->id)
-                            ->where('quali_id',$quali_id)
-                            ->first();
-
-
-                        // echo "<pre>";
-                        // print_r($checkIfAllContestantIsAlreadyScored);
-                        // echo "</pre>";
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                        // $data[$x]['data'] = $checkIfAllContestantIsAlreadyScored;
-
-                        // if ($checkIfAllContestantIsAlreadyScored != '')
-                        // {
-                        //     $status = 1;
-                        // }
-                        // else
-                        // {
-                        //     $status = 0;
-                        //     break;
-                        // }
-                        // dd($checkIfAllContestantIsAlreadyScored);
-                    }
-                }
-            }
-            // dd($status);
-          
-        }
+        
         return view('qualification.index', compact('getQuali', 'getContestant', 'tti'));
     }
 
     public function feedsGenerateTopTen($quali_id)
     {
-        $getQuali = Qualification::where('id', $quali_id)->first();
-        $tti = Institutions::get();
+        $getTTIQuali = Contestant::join('institutions','institutions.id','contestants.tti_id')
+            ->where('quali_id',$quali_id)
+            ->get()
+            ->keyBy('tti_name');
+
+        $judgeTTI = User::with('roles')
+            ->where('id','!=',1)
+            ->where('quali_id',$quali_id)
+            ->get();
+
+        $countTTI = count($judgeTTI);
 
 
-        $getTti = Institutions::where('id',"!=",Auth::user()->tti_id)->get();
-        $countTti = count($getTti);
-
-        $getContestant = Contestant::join('institutions','institutions.id','contestants.tti_id')
-                    ->where('quali_id',$quali_id)
-                    ->get()
-                    ->keyBy('tti_name');
-
-        $getContestantThatCanBeScore = Contestant::join('institutions','institutions.id','contestants.tti_id')
-                    ->where('quali_id',$quali_id)
-                    ->where('tti_id',"!=",Auth::user()->tti_id)
-                    ->select('contestants.id')
-                    ->get();
-        $arrLength = count($getContestantThatCanBeScore);
-
-        if($quali_id == 1) // ASEXUAL
+        if($quali_id == 1)
         {
-            return "ASEXUAL NI SIYA :D";
+            return "ASEXUAL NI SIYA";
         }
-        if($quali_id == 2) // FEEDS
+        if($quali_id == 2)
         {
-            $ifAlreadyScoreAllContestant = ScoreFeed::where('quali_id',$quali_id)
-                ->get()
-                ->keyBy('con_id');
-
-            $countContestantAlreadyScore = count($ifAlreadyScoreAllContestant);
-
-            $getCriteriaFeed = CriteriaFeed::get();
-            $countCriteriaFeed = count($getCriteriaFeed);
-
-
-            // dd($getContestantThatCanBeScore);
-            $data = array();
-            for($i = 0; $i < $countTti; $i++)
+            $criteria = CriteriaFeed::where('quali_id',$quali_id)->get();
+            $countCrits = count($criteria);
+            $countAllGuidelineFeed = 0;
+            for($i = 0; $i < $countCrits; $i++)
             {
-                for($j = 0; $j < $arrLength; $j++)
-                {
-                    for($x = 0; $x < $countCriteriaFeed; $x++)
-                    {
-                        $checkIfAllContestantIsAlreadyScored = ScoreFeed::where('score_feeds.con_id', $getContestantThatCanBeScore[$j]->id)
-                            ->where('score_feeds.feed_crit_id', $getCriteriaFeed[$x]->id)
-                            ->where('quali_id',$quali_id)
-                            ->first();
-
-                        if ($checkIfAllContestantIsAlreadyScored != '')
-                        {
-                            $status = 1;
-                        }
-                        else
-                        {
-                            $status = 0;
-                            break;
-                        }
-                     
-                    }
-                }
+                $getGuideline = GuidelineFeed::where('feed_crit_id', $criteria[$i]->id)->get();
+                $countGuideline = count($getGuideline);
+                $countAllGuidelineFeed = $countAllGuidelineFeed + $countGuideline;
             }
-            
-            if ($status == 1)
+
+            $countContestant = 0;
+
+            foreach($judgeTTI as $judgeTTI)
+            {
+                $getContestant = Contestant::join('institutions','institutions.id','contestants.tti_id')
+                    ->where('quali_id',$quali_id)
+                    ->where('tti_id', '!=', $judgeTTI->tti_id)
+                    ->get();
+                
+                $countCon = count($getContestant);
+                $countContestant = $countContestant + $countCon;
+            }
+            $total = $countContestant * $countAllGuidelineFeed;
+
+            $generateTopTen = ScoreFeed::where('quali_id', $quali_id)
+                    ->get();
+            $countScoreFeed = count($generateTopTen);
+
+
+            if($total == $countScoreFeed)
             {
                 $generateTopTen = ScoreFeed::where('quali_id', $quali_id)
                     ->orderBy('overAllTotal', 'desc')
                     ->get()
+                    ->take(3)
                     ->keyBy('overAllTotal');
 
+                dd($generateTopTen);
             }
             else
             {
-                 return redirect()->back()->with('error', "WALA PA NASCORAN TANAN");
+                return redirect()->back()->with('error','There are Contestant in this Qualification that are not yet scored.');
             }
+          
         }
-        // return view('qualification.index', compact('getQuali', 'getContestant', 'tti'));
+
+        
+
+
+
+       
+       
     }
 
     public function contestantScore(Request $request)

@@ -772,8 +772,8 @@ class ScoreAsexualController extends Controller
         {
             
             $getAsexualGuidlines = ScoreAsexual::join('criteria_asexuals', 'criteria_asexuals.id', 'score_asexuals.asexual_crit_id')
-                ->join('guideline_asexuals', 'asexual_crit_id.id', 'score_asexuals.asexual_quide_id')
-                ->where('score_asexuals.feed_crit_id', $crit_id)
+                ->join('guideline_asexuals', 'guideline_asexuals.id', 'score_asexuals.asexual_quide_id')
+                ->where('score_asexuals.asexual_crit_id', $crit_id)
                 ->where('score_asexuals.con_id', $id)
                 ->get();
 
@@ -785,7 +785,10 @@ class ScoreAsexualController extends Controller
                 ->join('guideline_feeds', 'guideline_feeds.id', 'score_feeds.feed_quide_id')
                 ->where('score_feeds.feed_crit_id', $crit_id)
                 ->where('score_feeds.con_id', $id)
+                ->where('score_feeds.user_id', Auth::user()->id)
                 ->get();
+
+            // dd($crit_id);
 
             return view('qualification.showScore',compact('tti_id','quali_id','crit_id', 'id', 'getAsexualGuidlines'));
         }
@@ -867,7 +870,10 @@ class ScoreAsexualController extends Controller
         unset($guideAsexualId[0]);
         $arrLengthGuide = count($guideAsexualId);
 
-        $getJudge = User::where('tti_id','!=', $tti_id)->get();
+        $getJudge = User::with('roles')
+            ->where('id','!=',1)
+            ->where('tti_id','!=', $tti_id)
+            ->get();
         $countJudge = count($getJudge);
  
         if ($quali_id == 1) //Asexual
@@ -964,8 +970,10 @@ class ScoreAsexualController extends Controller
                 {
                     $sumOfAllTotalPerContestant = $sumOfAllTotalPerContestant + $getScoreContestantPerTTIAndQuali[$i]->total;
                 }
+                $overAllTotalJudge = $sumOfAllTotalPerContestant / $countJudge;
                 $data = array();
                 $data['overAllTotal'] = $sumOfAllTotalPerContestant;
+                $data['overAllTotalJudge'] = $overAllTotalJudge;
 
                 DB::table('score_feeds')->where('con_id', $id)->update($data);
             }

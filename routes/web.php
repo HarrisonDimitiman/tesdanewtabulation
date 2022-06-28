@@ -17,7 +17,7 @@ Route::group(['middleware' => ['auth']],function() {
             Route::get('/scoreForAsexual/{id}/{quali_id}/{tti_id}/{crit_id}','ScoreAsexualController@scoreForAsexual'); //vopy
 
             Route::get('/showScore/{id}/{quali_id}/{tti_id}/{crit_id}','ScoreAsexualController@showScore'); //vopy
-            Route::get('/scoreForAsexual/{id}/{quali_id}/{tti_id}/{crit_id}','ScoreAsexualController@scoreForAsexual'); //vopy
+            // Route::get('/scoreForAsexual/{id}/{quali_id}/{tti_id}/{crit_id}','ScoreAsexualController@scoreForAsexual'); //vopy
             Route::get('/showCritsForAsexual/{id}/{quali_id}/{tti_id}','ScoreAsexualController@showCritsForAsexual'); //vopy
 
             Route::get('/guidelinesAsexual/{asexualcrits_id}','GuidelineAsexualController@index');
