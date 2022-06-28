@@ -11,6 +11,24 @@
             <input type="text" name="name" class="form-control mb-3" placeholder="Name" required>
             <input type="email" name="email" class="form-control mb-3" placeholder="Email" required>
             <input type="password" name="password" class="form-control mb-3" placeholder="Password" required>
+            <div class="row">
+              <div class="col-6">
+                  <select name="role" class="form-control mb-3" id="role_select">
+                    <option value="">-- Qualification(Select Quali) --</option>
+                    @foreach($quali as $i => $qualis)
+                        <option value="{{ $qualis->quali_name }}">{{ ucwords($qualis->quali_name) }}</option>
+                    @endforeach
+                </select>
+              </div>
+              <div class="col-6">
+                  <select name="role" class="form-control mb-3" id="role_select">
+                    <option value="">-- Institutions(Select TTI) --</option>
+                    @foreach($tti as $i => $ttis)
+                        <option value="{{ $ttis->tti_abrv }}">{{ ucwords($ttis->tti_abrv) }}</option>
+                    @endforeach
+                </select>
+              </div>
+            </div>
             <select name="role" class="form-control mb-3" id="role_select">
                 <option value="">-- Role(Skip if Role is only User) --</option>
                 @foreach($roles as $i => $role)

@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\{User};
+use App\Models\{User, Institutions, Qualification};
 use DB;
 
 class UsersController extends Controller
 {
     public function index()
     {
+        $quali = Qualification::get();
+        $tti = Institutions::get();
         $you = auth()->user();
         $users = User::with('roles')->where('id','!=',1)->get();
         $roles = DB::table('roles')->get();
-        return view('dashboard.admin.usersList', compact('users', 'you', 'roles'));
+        return view('dashboard.admin.usersList', compact('users', 'you', 'roles','tti','quali'));
     }
 
     public function store(Request $request)

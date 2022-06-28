@@ -110,7 +110,7 @@
       
     });
 </script>
-{{-- <script type="text/javascript">
+<!-- <script type="text/javascript">
     $(".con").hide();
     $(".addCon").click(function(){
         $(".con").val(null);
@@ -120,14 +120,15 @@
         $(':input').val('');
         $(".con").hide();
     });
-</script> --}}
+</script>  -->
 <script>
-     $(document).ready(function() {
-        $("#form").submit(function() {
+   $(document).ready(function() {
+        $("form").submit(function() {
             $(this).submit(function() {
                 return false;
             });
             return true;
-        });
+        });     
+    }); 
 </script>
 @endsection
