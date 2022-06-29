@@ -5,6 +5,9 @@
 
 
 <div class="container-fluid">
+    @if(Auth::user()->id != 1)
+    
+    @else
     <button class="btn btn-primary ml-auto" type="button" data-toggle="modal" data-target="#contestantModal">
         <i class="cil-plus"></i>
         Create
@@ -14,9 +17,11 @@
         Generate Top 10
     </button></a>
     <br><br>
+    @endif
+    
     <div class="card">
             
-            <div class="card-header" style="background-image: url('assets/img/vgd.png');width: 100%;height: 90px; margin-left: auto;margin-right: auto; display: block;">
+            <div class="card-header" style="background-image: url('{{asset('assets/img/feed.jpg')}}');width: 100%;height: 90px; margin-left: auto;margin-right: auto; display: block;">
                 <div class="card mt-3" style="height:30px; opacity: 0.9;">
                     <strong style="font-size:15px;" class="mt-1 text-center"><strong style="color:ffffff;"> {{ $getQuali ->quali_name }}</strong></strong> 
                 </div>
@@ -47,16 +52,10 @@
                                {{$con->tti_name}}
                                 </a>
                             </div>
-                            {{-- <div class="col-2 p-0 align-self-end">
-                                <div class="row mb-2">
-                                    @if ( $con->tti_id== Auth::user()->tti_id)
-                                        <span class="badge badge-secondary float-right " style="font-size:10px;">Compatriot</span>
-                                    @else
-                                        <span class="badge badge-success float-right " style="font-size:10px;">Completed</span>
-                                    @endif
-                                </div>
+                          <div class="col-2 p-0 align-self-end">
+                          
                                 <div class="row"><h6 class="mt-auto bd-highlight float-right" style="font-size:10px;">{{$con->tti_abrv}}</h6></div>
-                            </div> --}}
+                            </div>
                         </div>
                     </h5>
                 </div>
@@ -121,14 +120,6 @@
         $(".con").hide();
     });
 </script>  -->
-<script>
-   $(document).ready(function() {
-        $("form").submit(function() {
-            $(this).submit(function() {
-                return false;
-            });
-            return true;
-        });     
-    }); 
-</script>
+
+
 @endsection

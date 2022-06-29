@@ -7,8 +7,11 @@
         <div class="col-md-5">
           <div class="card-group">
             <div class="card p-4">
+            <div class="card-header" style="background-image: url('{{ asset('assets/img/td.jpg')}}');background-repeat: no-repeat;height: 10rem; background-size: 100% 100%;">
+                
+                </div>
               <div class="card-body">
-                <h1 class="text-center">Login</h1>
+              
                 <p class="text-muted text-center">Sign In to your account</p>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
@@ -38,7 +41,7 @@
                     </div>
                     </form>
                     <div class="col-6 text-right">
-                        <a href="{{ route('password.request') }}" class="btn btn-link px-0">{{ __('Forgot Your Password?') }}</a>
+                        <a href="http://ict.rtciligan.com" class="btn btn-link px-0">{{ __('RTC-ILIGAN ICT') }}</a>
                     </div>
                     </div>
               </div>

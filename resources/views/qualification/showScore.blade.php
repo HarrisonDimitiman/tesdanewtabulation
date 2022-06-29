@@ -2,7 +2,7 @@
     <div class="modal-dialog " role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Criterias</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Guidelines</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -12,7 +12,7 @@
          <table class="table">
           <thead>
             <tr>
-              <th scope="col">Guidelines {{ $crit_id }}</th>
+              <th scope="col">Guidelines </th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -21,9 +21,9 @@
             
                 @foreach ($getAsexualGuidlines as $getAsexualGuidlines )
                 <tr>
-                  <td>{{ $getAsexualGuidlines->gd_name}}</td>
+                  <td>{{ $getAsexualGuidlines->gd_name}} <strong>({{ $getAsexualGuidlines->gd_total}} pts)</strong></td>
                   <td>
-                    <input type="number" disabled name="score_asexual[]" required value="{{ $getAsexualGuidlines->score }}">
+                    <input type="number" disabled name="score_asexual[]" style="width: 40px;text-align:center;" step="0.01" required value="{{ $getAsexualGuidlines->score }}">
                     <input type="hidden" name="guideAsexualId[]" required value="{{ $getAsexualGuidlines->id }}">
                   </td>
                 </tr>

@@ -3,10 +3,11 @@
 @endphp
 
 <div class="c-sidebar-brand">
-  <img class="c-sidebar-brand-full" src="{{ url('/assets/brand/coreui-base-white.svg') }}" width="118" height="46" alt="CoreUI Logo">
-  <img class="c-sidebar-brand-minimized" src="{{ url('assets/brand/coreui-signet-white.svg') }}" width="118" height="46" alt="CoreUI Logo">
+  <!-- <img class="c-sidebar-brand-full" src="{{ url('/assets/brand/coreui-base-white.svg') }}" width="118" height="46" alt="CoreUI Logo">
+  <img class="c-sidebar-brand-minimized" src="{{ url('assets/brand/coreui-signet-white.svg') }}" width="118" height="46" alt="CoreUI Logo"> -->
 </div>
 <ul class="c-sidebar-nav">
+  @if(Auth::user()->id == 1)
   <li class="c-sidebar-nav-title">@lang('Admin Configuration')</li>
   <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link" href="{{ route('institution.index') }}">
@@ -62,17 +63,26 @@
      </a>
     </ul>
   </li>
+  @endif
   <li class="c-sidebar-nav-title">@lang('Qualification')</li>
 
   <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
     <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle"> <i class="cil-speedometer c-sidebar-nav-icon"></i> Qualification </a>
     <ul class="c-sidebar-nav-dropdown-items">
      @foreach ($qualification as $quali)
-       <a  href="{{ URL::to('/qualiCon/'.$quali->id) }}">
-        <li class="c-sidebar-nav-link">
-        {{ $quali->quali_name }}
-          </li>
-       </a>
+        @if( Auth::user()->quali_id == $quali->id)
+        <a  href="{{ URL::to('/qualiCon/'.$quali->id) }}">
+          <li class="c-sidebar-nav-link">
+          {{ $quali->quali_name }}
+            </li>
+        </a>
+        @elseif( Auth::user()->quali_id == null)
+        <a  href="{{ URL::to('/qualiCon/'.$quali->id) }}">
+          <li class="c-sidebar-nav-link">
+          {{ $quali->quali_name }}
+            </li>
+        </a>
+        @endif
        @endforeach
     </ul>
   </li>

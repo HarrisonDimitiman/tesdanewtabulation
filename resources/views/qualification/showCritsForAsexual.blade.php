@@ -21,7 +21,7 @@
               <td>{{ $data[$i]['crit_name'] }}</td>
               <td>
                 @if ($data[$i]['status'] == 'Already Score')
-                  <button class="btn btn-block btn-info btn-sm showScore" type="button" data-url="{{ URL::to('/showScore/'.$id.'/'.$quali_id.'/'.$tti_id.'/'.$data[$i]['id']) }}"> View Score (Already Score)</button>
+                  <button class="btn btn-block btn-success btn-sm showScore" type="button" data-url="{{ URL::to('/showScore/'.$id.'/'.$quali_id.'/'.$tti_id.'/'.$data[$i]['id']) }}"> View Score</button>
                 @else
                   <button class="btn btn-block btn-info btn-sm scoreForAsexual" type="button" data-url="{{ URL::to('/scoreForAsexual/'.$id.'/'.$quali_id.'/'.$tti_id.'/'.$data[$i]['id']) }}"> Score</button>
                 @endif

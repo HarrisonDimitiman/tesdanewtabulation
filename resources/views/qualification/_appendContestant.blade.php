@@ -1,9 +1,9 @@
 
 <div class="card-body">
     <div class="float-right ">
-        <div class="row mb-2">
+        <div class="row">
             @if ( $status == 1)
-                <span class="badge badge-success float-right " style="font-size:10px;">Completed</span>
+                  <span class="badge badge-success float-right " style="font-size:10px;">Completed</span>
             @elseif ( $status == 0 )
                 @if ($tti_id == Auth::user()->tti_id)
                     <span class="badge badge-secondary float-right " style="font-size:10px;">Compatriot</span>

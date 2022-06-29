@@ -19,6 +19,8 @@
                         <thead>
                           <tr>
                             <th>Username</th>
+                            <th>Qualification</th>
+                            <th>Institution</th>
                             <th>E-mail</th>
                             <th>Roles</th>
                             <th width="5%"></th>
@@ -29,6 +31,8 @@
                           @foreach($users as $user)
                             <tr>
                               <td>{{ $user->name }}</td>
+                              <td>{{ $user->quali_name}}</td>
+                              <td>{{ $user->tti_abrv }}</td>
                               <td>{{ $user->email }}</td>
                               <td>
                                 @php
@@ -48,13 +52,9 @@
                                 <a href="{{ url('/users/' . $user->id . '/edit') }}" class="btn btn-block btn-primary"><i class="cil-pencil"></i></a>
                               </td>
                               <td>
-                                @if( $you->id !== $user->id )
-                                <form action="{{ route('users.destroy', $user->id ) }}" method="POST">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-block btn-danger"><i class="cil-trash"></i></button>
-                                </form>
-                                @endif
+                               
+                               
+                              
                               </td>
                             </tr>
                           @endforeach

@@ -775,6 +775,7 @@ class ScoreAsexualController extends Controller
                 ->join('guideline_asexuals', 'guideline_asexuals.id', 'score_asexuals.asexual_quide_id')
                 ->where('score_asexuals.asexual_crit_id', $crit_id)
                 ->where('score_asexuals.con_id', $id)
+                ->where('score_asexuals.user_id', Auth::user()->id)
                 ->get();
 
             return view('qualification.showScore',compact('tti_id','quali_id','crit_id', 'id', 'getAsexualGuidlines'));
@@ -798,6 +799,7 @@ class ScoreAsexualController extends Controller
                 ->join('guideline_knapsacks', 'guideline_knapsacks.id', 'score_knapsacks.knapsack_quide_id')
                 ->where('score_knapsacks.knapsack_crit_id', $crit_id)
                 ->where('score_knapsacks.con_id', $id)
+                ->where('score_knapsacks.user_id', Auth::user()->id)
                 ->get();
 
             return view('qualification.showScore',compact('tti_id','quali_id','crit_id', 'id', 'getAsexualGuidlines'));
@@ -808,6 +810,7 @@ class ScoreAsexualController extends Controller
                 ->join('guideline_bakings', 'guideline_bakings.id', 'score_bakings.baking_quide_id')
                 ->where('score_bakings.baking_crit_id', $crit_id)
                 ->where('score_bakings.con_id', $id)
+                ->where('score_bakings.user_id', Auth::user()->id)
                 ->get();
 
             return view('qualification.showScore',compact('tti_id','quali_id','crit_id', 'id', 'getAsexualGuidlines'));
@@ -818,6 +821,7 @@ class ScoreAsexualController extends Controller
                 ->join('guideline_cookings', 'guideline_cookings.id', 'score_cookings.cooking_quide_id')
                 ->where('score_cookings.cooking_crit_id', $crit_id)
                 ->where('score_cookings.con_id', $id)
+                ->where('score_cookings.user_id', Auth::user()->id)
                 ->get();
 
             return view('qualification.showScore',compact('tti_id','quali_id','crit_id', 'id', 'getAsexualGuidlines'));
@@ -828,6 +832,7 @@ class ScoreAsexualController extends Controller
                 ->join('guideline_restaurants', 'guideline_restaurants.id', 'score_restaurants.restaurant_quide_id')
                 ->where('score_restaurants.restaurant_crit_id', $crit_id)
                 ->where('score_restaurants.con_id', $id)
+                ->where('score_restaurants.user_id', Auth::user()->id)
                 ->get();
 
             return view('qualification.showScore',compact('tti_id','quali_id','crit_id', 'id', 'getAsexualGuidlines'));
@@ -838,6 +843,7 @@ class ScoreAsexualController extends Controller
                 ->join('guideline_patisseries', 'guideline_patisseries.id', 'score_patisseries.patisseries_quide_id')
                 ->where('score_patisseries.patisserie_crit_id', $crit_id)
                 ->where('score_patisseries.con_id', $id)
+                ->where('score_patisseries.user_id', Auth::user()->id)
                 ->get();
 
             return view('qualification.showScore',compact('tti_id','quali_id','crit_id', 'id', 'getAsexualGuidlines'));
@@ -848,6 +854,7 @@ class ScoreAsexualController extends Controller
                 ->join('guideline_weldings', 'guideline_weldings.id', 'score_weldings.welding_quide_id')
                 ->where('score_weldings.welding_crit_id', $crit_id)
                 ->where('score_weldings.con_id', $id)
+                ->where('score_weldings.user_id', Auth::user()->id)
                 ->get();
 
             return view('qualification.showScore',compact('tti_id','quali_id','crit_id', 'id', 'getAsexualGuidlines'));
@@ -939,7 +946,7 @@ class ScoreAsexualController extends Controller
                 $countAllGuidelineFeed = $countAllGuidelineFeed + $countGuideline;
             }
             
-            $totalOfJudgeAndGuideline = $countAllGuidelineFeed*$countJudge;
+            $totalOfJudgeAndGuideline = $countAllGuidelineFeed*$countJudge; //14
 
             
             for($i=1; $i <= $arrLength; $i++)
@@ -961,16 +968,16 @@ class ScoreAsexualController extends Controller
                 ->where('score_feeds.quali_id', $quali_id)
                 ->where('score_feeds.con_id', $id)
                 ->get();
-            $countScoreContestantPerTTIAndQuali = count($getScoreContestantPerTTIAndQuali);
+             $countScoreContestantPerTTIAndQuali = count($getScoreContestantPerTTIAndQuali); //4
             
             if($totalOfJudgeAndGuideline == $countScoreContestantPerTTIAndQuali)
             {
                 $sumOfAllTotalPerContestant = 0;
                 for($i = 0; $i < $countScoreContestantPerTTIAndQuali; $i++)
                 {
-                    $sumOfAllTotalPerContestant = $sumOfAllTotalPerContestant + $getScoreContestantPerTTIAndQuali[$i]->total;
+                     $sumOfAllTotalPerContestant = $sumOfAllTotalPerContestant + $getScoreContestantPerTTIAndQuali[$i]->total;
                 }
-                $overAllTotalJudge = $sumOfAllTotalPerContestant / $countJudge;
+                 $overAllTotalJudge = $sumOfAllTotalPerContestant / $countJudge;
                 $data = array();
                 $data['overAllTotal'] = $sumOfAllTotalPerContestant;
                 $data['overAllTotalJudge'] = $overAllTotalJudge;
@@ -1287,7 +1294,7 @@ class ScoreAsexualController extends Controller
         }
         
         
-        return redirect()->back()->with('success','Successfully Score Contestant!!');
+       // return redirect()->back()->with('success','Successfully Score Contestant!!');
     }
     /**
      * Show the form for creating a new resource.

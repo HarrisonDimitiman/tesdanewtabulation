@@ -13,18 +13,18 @@
             <input type="password" name="password" class="form-control mb-3" placeholder="Password" required>
             <div class="row">
               <div class="col-6">
-                  <select name="role" class="form-control mb-3" id="role_select">
+                  <select name="quali_id" class="form-control mb-3" >
                     <option value="">-- Qualification(Select Quali) --</option>
                     @foreach($quali as $i => $qualis)
-                        <option value="{{ $qualis->quali_name }}">{{ ucwords($qualis->quali_name) }}</option>
+                        <option value="{{ $qualis->id }}">{{ ucwords($qualis->quali_name) }}</option>
                     @endforeach
                 </select>
               </div>
               <div class="col-6">
-                  <select name="role" class="form-control mb-3" id="role_select">
+                  <select name="tti_id" class="form-control mb-3" >
                     <option value="">-- Institutions(Select TTI) --</option>
                     @foreach($tti as $i => $ttis)
-                        <option value="{{ $ttis->tti_abrv }}">{{ ucwords($ttis->tti_abrv) }}</option>
+                        <option value="{{ $ttis->id}}">{{ ucwords($ttis->tti_abrv) }}</option>
                     @endforeach
                 </select>
               </div>

@@ -74,7 +74,7 @@ class QualificationController extends Controller
                 $countCon = count($getContestant);
                 $countContestant = $countContestant + $countCon;
             }
-            $total = $countContestant * $countAllGuidelineFeed;
+             $total = $countContestant * $countAllGuidelineFeed;
 
             $generateTopTen = ScoreFeed::where('quali_id', $quali_id)
                     ->get();
@@ -83,13 +83,13 @@ class QualificationController extends Controller
 
             if($total == $countScoreFeed)
             {
-                $generateTopTen = ScoreFeed::where('quali_id', $quali_id)
+                 $generateTopTen = ScoreFeed::where('quali_id', $quali_id)
                     ->orderBy('overAllTotal', 'desc')
                     ->get()
                     ->take(3)
                     ->keyBy('overAllTotal');
 
-                dd($generateTopTen);
+                // dd($generateTopTen);
             }
             else
             {
@@ -97,12 +97,6 @@ class QualificationController extends Controller
             }
           
         }
-
-        
-
-
-
-       
        
     }
 

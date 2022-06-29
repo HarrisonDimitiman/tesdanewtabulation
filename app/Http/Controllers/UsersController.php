@@ -14,7 +14,11 @@ class UsersController extends Controller
         $quali = Qualification::get();
         $tti = Institutions::get();
         $you = auth()->user();
-        $users = User::with('roles')->where('id','!=',1)->get();
+         $users = User::join('institutions','institutions.id','users.tti_id')
+                    ->join('qualifications','qualifications.id','users.quali_id')
+                    ->select('institutions.tti_abrv','qualifications.quali_name','users.name','users.email')
+                    ->get();
+
         $roles = DB::table('roles')->get();
         return view('dashboard.admin.usersList', compact('users', 'you', 'roles','tti','quali'));
     }
@@ -29,6 +33,8 @@ class UsersController extends Controller
         $user = new User;
         $user->name       = $request->input('name');
         $user->email      = $request->input('email');
+        $user->tti_id = $request->tti_id;
+        $user->quali_id = $request->quali_id;
         $user->password = Hash::make($request->input('password'));
         $user->save();
 
@@ -101,15 +107,15 @@ class UsersController extends Controller
         return redirect()->route('users.index')->with('success','Successfully Updated User!');
     }
 
-    public function destroy($id)
-    {
-        $user = User::find($id);
-        if($user){
-            $deleted_count = User::withTrashed()->where('email', 'LIKE' ,'%'.$user->email .'%')->count() + 1;
-            $user->email = $user->email.'-deleted'.$deleted_count;
-            $user->save();
-            $user->delete();
-        }
-        return redirect()->route('users.index')->with('success','Successfully Deleted User!');
-    }
+    // public function destroy($id)
+    // {
+    //     $user = User::find($id);
+    //     if($user){
+    //         $deleted_count = User::withTrashed()->where('email', 'LIKE' ,'%'.$user->email .'%')->count() + 1;
+    //         $user->email = $user->email.'-deleted'.$deleted_count;
+    //         $user->save();
+    //         $user->delete();
+    //     }
+    //     return redirect()->route('users.index')->with('success','Successfully Deleted User!');
+    // }
 }

@@ -3,7 +3,28 @@
 Auth::routes();
 
 Route::redirect('/','/login');
-
+Route::get('/', function () {
+    if(auth()->user()->quali_id == 1) { 
+        return \Redirect::to('/qualiCon/1');
+    } else if(auth()->user()->quali_id == 2) { 
+        return \Redirect::to('/qualiCon/2');
+    }else if(auth()->user()->quali_id == 3) { 
+        return \Redirect::to('/qualiCon/3');
+    }else if(auth()->user()->quali_id == 4) { 
+        return \Redirect::to('/qualiCon/4');
+    }else if(auth()->user()->quali_id == 5) { 
+        return \Redirect::to('/qualiCon/5');
+    }else if(auth()->user()->quali_id == 6) { 
+        return \Redirect::to('/qualiCon/6');
+    }else if(auth()->user()->quali_id == 7) { 
+        return \Redirect::to('/qualiCon/7');
+    }else if(auth()->user()->quali_id == 8) { 
+        return \Redirect::to('/qualiCon/8');
+    }
+     else {
+        return \Redirect::to('/dashboard');
+    }
+})->middleware('auth');
 Route::group(['middleware' => ['auth']],function() { 
 
     Route::get('/dashboard','DashboardController@index')->name('dashboard.index');
